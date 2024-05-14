@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room - Join</title>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image:url('https://static.vecteezy.com/system/resources/thumbnails/038/780/286/small_2x/ai-generated-empty-dark-room-with-wooden-floor-and-lamp-on-top-generated-by-artificial-intelligence-photo.jpg');
+            background-repeat:no-repeat;
+            background-size:cover;
+        }
+
+        .container {
+            margin-left:20%;
+            border: 1px solid #ccc; /* Border style */
+            font-size:24px;
+            padding: 80px;
+            border-radius: 50px; /* Rounded corners */
+            background-image:url('https://static.vecteezy.com/system/resources/thumbnails/022/807/092/small/close-up-of-an-empty-room-dark-wall-and-floor-texture-illustration-background-mock-up-with-generative-ai-free-photo.jpg');
+            background-size:cover;
+            color:white;
+            background-repeat:no-repeat;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow */
+            max-width: 350px; /* Maximum width of the container */
+            width: 100%; /* Take up full width */
+            text-align: center; /* Center-align text */
+        }
+
+        /* Optional: Style the form elements */
+        input[type="text"],
+        button {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-sizing: border-box; /* Ensure padding and border are included in the width */
+        }
+
+        button {
+            margin-top:20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            font-size:20px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+       
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        .container mt-5{
+            margin-left:40%;        
+        }
+        h1{
+            font-size:50px;
+            color:white;
+        }
+        p{
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Secure Online Chat</h1>
+    <div class="container mt-5">
+        
+        <form action="{{ url_for('join_chat') }}" method="post">
+            <label for="username">Enter the Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="pin">Create or Join PIN:</label>
+            <input type="text" id="pin" name="pin" required>
+            <button type="submit">chat</button>
+        </form>
+    </div>
+   
+</body>
+</html>

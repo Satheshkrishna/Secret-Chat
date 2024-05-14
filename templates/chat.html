@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room - Secret Pin: {{ pin }}</title>
+    <!-- Add any necessary CSS or external library links here -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://blog.procircular.com/hubfs/Hacker.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            padding: 20px;
+        }
+        
+        h1, h2 {
+            margin: 10px 0;
+        }
+        
+        #messageContainer {
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .message p {
+            margin: 0;
+        }
+        
+        input[type="text"] {
+            width: calc(100% - 80px);
+            padding: 10px;
+            margin-right: 10px;
+        }
+        
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button {
+            margin-top:20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            font-size:20px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        p{
+            margin-top:30%;
+            font-size:20px; 
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Welcome, {{ username }}</h1>
+        <h2>Secret Pin: {{ pin }}</h2>
+
+        <hr>
+
+        <div id="messageContainer">
+           
+            {% for message in chat_messages %}
+                <div class="message">
+                    <p><strong>{{ message['from'] }}:</strong> {{ message['message'] }}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <hr>
+
+        
+        <form id="deleteChatRoomForm" method="POST" action="{{ url_for('delete_chat', pin=pin) }}">
+            <button type="button" id="deleteChatRoomButton">Delete Chat Room</button>
+        </form>
+
+        <form id="messageForm" method="POST" action="{{ url_for('chat', username=username, pin=pin) }}">
+            <input type="text" name="message" placeholder="Type your message..." required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <footer>
+        <center>
+            <p>@2024 SK Private chat</p>
+        </center>
+    </footer>   
+    <script>
+      
+        function deleteChatRoom() {
+            if (confirm("Are you sure you want to delete this chat room?")) {
+                document.getElementById("deleteChatRoomForm").submit();
+            }
+        }
+
+   
+        document.getElementById("deleteChatRoomButton").addEventListener("click", deleteChatRoom);
+    </script>
+
+   
+    <input type="hidden" id="lastMessageTimestamp" value="{{ last_message_timestamp }}">
+   
+    <script>
+        function reloadPage() {
+            var lastMessageTimestamp = document.getElementById('lastMessageTimestamp').value;
+            var url = window.location.href.split('?')[0] + '?last_message_timestamp=' + lastMessageTimestamp;
+            window.location.href = url;
+        }
+
+        setInterval(reloadPage, 5000);
+    </script>
+</body>
+</html>
